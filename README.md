@@ -221,5 +221,46 @@
 
 #### LLT：标准Cholesky分解
 
-    
+#### 几何变换
 
+    Eigen中有专门的几何变化的头文件Geometry
+    
+    Eigen::AngleAxisd 用来表示旋转向量
+    Eigen::Matrix4f 用来表示变换矩阵
+    Eigen::Quaterniond 用来表示四元数
+    Eigen::Vector3d 用来表示欧拉角
+    Eigen::Affine3d 用来表示仿射矩阵
+    Eigen::Transform 用来表示变换
+
+    1、旋转向量
+    旋转角为alpha，旋转轴为(x,y,z)
+    Eigen::AngleAxisd rotation_vector(alpha, Eigen::Vector3d(x, y, z));
+    旋转向量转旋转矩阵
+    Eigen::Matrix3d rotation_matrix;
+    rotation_matrix=rotation_vector.matrix();//方法1
+    rotation_matrix = rotation_vector.toRotationMatrix();//方法2
+    旋转向量转欧拉角
+    R：roll 横滚  绕x轴旋转
+    P：pitch 俯仰  绕y轴旋转
+    Y：yaw 偏航 绕z轴旋转
+    (Z-Y-X，即RPY) 这里的排序是因为一般变换的矩阵在左边，点集在右边，矩阵乘法是从右向左
+    Eigen::Vector3d euler_angles = rotation_matrix.eulerAngles(2, 1, 0);
+    旋转向量转四元数
+    Eigen::Quaterniond quaternion(rotation_vector);//方法1
+
+    Eigen::Quaterniond quaternion;
+    quaternion = rotation_vector;//方法2
+
+    2、旋转矩阵
+    Eigen::Matrix3d rotation_matrix;
+    rotation_matrix<<x_00,x_01,x_02,x_10,x_11,x_12,x_20,x_21,x_22;
+    旋转矩阵转旋转向量
+    Eigen::AngleAxisd rotation_vector(rotation_matrix);//方法1
+    
+    Eigen::AngleAxisd rotation_vector;
+    rotation_vector=rotation_matrix;//方法2
+    
+    Eigen::AngleAxisd rotation_vector;
+    rotation_vector.fromRotationMatrix(rotation_matrix);//方法3
+ 
+    

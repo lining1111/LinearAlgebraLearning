@@ -30,3 +30,7 @@ target_link_libraries(ch2_section1 ${LIBS})
 
 add_executable(ch2_section2 ch2_section2.cpp)
 target_link_libraries(ch2_section2 ${LIBS})
+
+##ch3 几何运算
+add_executable(ch3_section1 ch3_section1.cpp)
+target_link_libraries(ch3_section1 ${LIBS})
